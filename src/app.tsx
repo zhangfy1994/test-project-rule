@@ -4,7 +4,6 @@ import "./app.less";
 const App: React.FC = () => {
   const [count, setCount] = React.useState(0);
   const a;
-
   return (
     <>
       <div className="hello">hello</div>
