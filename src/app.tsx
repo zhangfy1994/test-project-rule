@@ -5,6 +5,7 @@ const App: React.FC = () => {
   const [count, setCount] = React.useState(0);
 
   const a;
+  b;
 
   return (
     <>
