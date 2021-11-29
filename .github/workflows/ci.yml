@@ -13,10 +13,26 @@ jobs:
       - name: Build
         run: npm install && npm run build
 
-      - name: Deploy
+      - name: github-pages
         uses: JamesIves/github-pages-deploy-action@4.1.7
         with:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           # REPOSITORY_NAME: zhangfy1994.github.io/test-project-rule
           BRANCH: gh-pages
           FOLDER: dist
+      
+      - name: Build the Docker image
+      run: |
+      docker login --username=${{ secrets.DOCKER_USERNAME }} registry.cn-hangzhou.aliyuncs.com --password=${{ secrets.DOCKER_PASSWORD }}
+      docker build -t test-project-rule:latest .
+      docker tag test-project-rule registry.cn-hangzhou.aliyuncs.com/zfy-test/test-project-rule:latest
+      docker push registry.cn-hangzhou.aliyuncs.com/zfy-test/test-project-rule:latest
+
+     - name: ssh docker login # 使用appleboy/ssh-action@master登录服务器执行拉取镜像脚本，服务器ip、用户名、密码配置方式同容器镜像服务配置方式一样
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }} 
+        username: ${{ secrets.SSH_USERNAME }}
+        password: ${{ secrets.SSH_PASSWORD }}
+        script: cd ~ && sh test-project-rule-deploy.sh ${{ secrets.DOCKER_USERNAME }} ${{ secrets.DOCKER_PASSWORD }}
+
