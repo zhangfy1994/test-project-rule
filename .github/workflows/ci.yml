@@ -20,10 +20,8 @@ jobs:
           # REPOSITORY_NAME: zhangfy1994.github.io/test-project-rule
           BRANCH: gh-pages
           FOLDER: dist
-
       - name: Build the Docker image
-      run:
-      docker login --username=${{ secrets.DOCKER_USERNAME }} registry.cn-hangzhou.aliyuncs.com --password=${{ secrets.DOCKER_PASSWORD }} && 
+        run: docker login --username=${{ secrets.DOCKER_USERNAME }} registry.cn-hangzhou.aliyuncs.com --password=${{ secrets.DOCKER_PASSWORD }} && 
       docker build -t test-project-rule:latest . &&
       docker tag test-project-rule registry.cn-hangzhou.aliyuncs.com/zfy-test/test-project-rule:latest &&
       docker push registry.cn-hangzhou.aliyuncs.com/zfy-test/test-project-rule:latest
