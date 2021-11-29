@@ -17,6 +17,6 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          REPOSITORY_NAME: test-project-rule/zhangfy1994.github.io
+          # REPOSITORY_NAME: zhangfy1994.github.io/test-project-rule
           BRANCH: master
           FOLDER: dist
