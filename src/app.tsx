@@ -1,14 +1,15 @@
 import * as React from "react";
+import { RecoilRoot } from "recoil";
 import "./app.less";
+import Count from "./count";
 
 const App: React.FC = () => {
-  const [count, setCount] = React.useState(0);
   return (
-    <>
-      <div className="hello">hello</div>
-      <div>{count}</div>
-      <button onClick={() => setCount((count) => count + 1)}>click</button>
-    </>
+    <React.Suspense fallback={null}>
+      <RecoilRoot>
+        <Count />
+      </RecoilRoot>
+    </React.Suspense>
   );
 };
 

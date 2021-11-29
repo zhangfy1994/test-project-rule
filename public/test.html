@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const testArr = [1, 3, 43, 23, 1, 23, 4];
+      for (let i = 0; i < 100000; i++) {
+        const num = Math.random() * 1000;
+        testArr.push(num);
+      }
+      // 合并排序
+      function merge(left, right) {
+        const result = [];
+        let leftIndex = 0;
+        let rightIndex = 0;
+
+        while (leftIndex < left.length && rightIndex < right.length) {
+          if (left[leftIndex] > right[rightIndex]) {
+            result.push(right[rightIndex]);
+            rightIndex++;
+          } else {
+            result.push(left[leftIndex]);
+            leftIndex++;
+          }
+        }
+
+        return result
+          .concat(left.splice(leftIndex))
+          .concat(right.splice(rightIndex));
+      }
+
+      function mergeSort(array) {
+        const arr = [...array];
+        if (arr.length <= 1) {
+          return arr;
+        }
+
+        const middle = Math.floor(arr.length / 2);
+        const left = arr.splice(0, middle);
+        const right = arr;
+
+        return merge(mergeSort(left), mergeSort(right));
+      }
+
+      const date = new Date().valueOf();
+      const res = mergeSort(testArr);
+      console.log("date", new Date().valueOf() - date);
+      console.log(">>>>>", res);
+
+      // 快速排序
+      function quickSort(array) {
+        const arr = [...array];
+        if (arr.length <= 1) {
+          return arr;
+        }
+
+        const middle = arr[Math.floor(arr.length / 2)];
+        const left = [];
+        const right = [];
+        const center = [];
+
+        while (arr.length) {
+          const current = arr.shift();
+          if (current > middle) {
+            right.push(current);
+          } else if (current === middle) {
+            center.push(current);
+          } else {
+            left.push(current);
+          }
+        }
+
+        const sortLeft = quickSort(left);
+        const sortRight = quickSort(right);
+
+        return sortLeft.concat(center, sortRight);
+      }
+      // const date = new Date().valueOf();
+      // const res = quickSort(testArr);
+      // console.log(">>>>>", res);
+      // console.log("date", new Date().valueOf() - date);
+
+      // 原生排序
+      // const date = Date.now();
+      // testArr.sort((a, b) => a - b);
+      // console.log("date", Date.now() - date);
+      // console.log(">>>>>", testArr);
+    </script>
+  </body>
+</html>

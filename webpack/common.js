@@ -1,12 +1,15 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
+const isDevelopment = process.env.NODE_ENV !== "production";
+
 module.exports = {
   entry: path.resolve(__dirname, "../src/index"),
-  output: {
-    path: path.resolve(__dirname, "../dist"),
-    filename: "[name].js",
-  },
+  // output: {
+  //   publicPath: "/aaa/",
+  //   path: path.resolve(__dirname, "../dist"),
+  //   filename: "[name].js",
+  // },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "../"),
@@ -23,15 +26,17 @@ module.exports = {
     rules: [
       {
         test: /\.(ts|js)x$/,
-        loader: "babel-loader",
-        options: {
-          plugins: [require.resolve("react-refresh/babel")], // react-refresh 添加
-        },
         exclude: /node_modules/,
-      },
-      {
-        test: /\.(css|less)$/,
-        use: ["style-loader", "css-loader", "less-loader"],
+        use: [
+          {
+            loader: require.resolve("babel-loader"),
+            options: {
+              plugins: [
+                isDevelopment && require.resolve("react-refresh/babel"),
+              ].filter(Boolean), // react-refresh 添加
+            },
+          },
+        ],
       },
       {
         test: /\.(png|gif|jpg|jpeg)$/,

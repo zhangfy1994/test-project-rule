@@ -3,10 +3,7 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: [
-    "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended",
-  ],
+  extends: ["plugin:@typescript-eslint/recommended", "prettier"],
   parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaFeatures: {
@@ -15,9 +12,8 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: "module",
   },
-  plugins: ["react", "@typescript-eslint"],
+  plugins: ["react", "@typescript-eslint", "react-hooks", "prettier"],
   rules: {
-    "prettier/prettier": "error",
     indent: "off",
     "no-console": "off",
     "import/order": "off",
@@ -28,13 +24,13 @@ module.exports = {
     "new-cap": "off",
     "default-case": "off",
     "react/jsx-boolean-value": "off",
-    // "react-hooks/exhaustive-deps": [
-    //   "warn",
-    //   {
-    //     additionalHooks: "useRecoilCallback",
-    //   },
-    // ],
-    // indent: ['warn', 2],
+    "react-hooks/exhaustive-deps": [
+      "warn",
+      {
+        additionalHooks: "useRecoilCallback",
+      },
+    ],
+    // indent: ["warn", 2],
     "@typescript-eslint/no-empty-interface": "off",
     // React17 jsx改动
     // "react/jsx-uses-react": "off",
