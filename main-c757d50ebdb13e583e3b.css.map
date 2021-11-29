@@ -1,0 +1,1 @@
+{"version":3,"file":"main-c757d50ebdb13e583e3b.css","mappings":"AAAA;EACE;AACF","sources":["webpack://test/./src/app.less"],"sourcesContent":[".hello {\n  color: blue;\n}\n"],"names":[],"sourceRoot":""}
